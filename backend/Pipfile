@@ -11,6 +11,7 @@ aiofiles = "*"
 sqlalchemy = "*"
 psycopg2 = "*"
 python-dotenv = "*"
+pydantic = {extras = ["email"], version = "*"}
 
 [dev-packages]
 
