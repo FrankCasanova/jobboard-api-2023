@@ -2,3 +2,6 @@ fastapi
 uvicorn
 jinja2
 aiofiles
+sqlalchemy
+psycopg2
+python-dotenv
