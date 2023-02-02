@@ -9,10 +9,10 @@ uvicorn = "*"
 jinja2 = "*"
 aiofiles = "*"
 sqlalchemy = "*"
-psycopg2 = "*"
 python-dotenv = "*"
 pydantic = {extras = ["email"], version = "*"}
 passlib = {extras = ["bcrypt"], version = "*"}
+psycopg2-binary = "*"
 
 [dev-packages]
 
