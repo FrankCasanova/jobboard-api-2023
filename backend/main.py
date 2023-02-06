@@ -15,8 +15,9 @@ def configure_static(app):
     app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
-def create_tables():           #new
-	Base.metadata.create_all(bind=engine)
+def create_tables():
+    print('Creating tables.')
+    Base.metadata.create_all(bind=engine)
 
 	
 def start_application():
