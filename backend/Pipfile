@@ -13,6 +13,9 @@ python-dotenv = "*"
 pydantic = {extras = ["email"], version = "*"}
 passlib = {extras = ["bcrypt"], version = "*"}
 psycopg2-binary = "*"
+pytest = "*"
+requests = "*"
+httpx = "*"
 
 [dev-packages]
 
