@@ -1,4 +1,4 @@
-import json
+
 
 
 def test_create_user(client):
