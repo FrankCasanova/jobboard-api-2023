@@ -1,3 +1,6 @@
+from fastapi import status
+
+
 def test_create_job(client):
     data = {
         "title": "SDE super",
@@ -59,3 +62,17 @@ def test_update_a_job(client):
     data["title"] = "test new title"
     response = client.put("/jobs/update/1", json=data)
     assert response.json()["msg"] == "Successfully updated data."
+
+
+def test_delete_a_job(client):
+    data = {
+        "title": "New Job super",
+        "company": "doogle",
+        "company_url": "www.doogle.com",
+        "location": "USA,NY",
+        "description": "fastapi",
+        "date_posted": "2022-03-20",
+    }
+    client.post("/jobs/create-job/", json=data)
+    response = client.get("/jobs/get/1/")
+    assert response.status_code == status.HTTP_404_NOT_FOUND
