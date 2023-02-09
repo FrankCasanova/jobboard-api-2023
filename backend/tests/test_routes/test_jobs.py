@@ -74,5 +74,6 @@ def test_delete_a_job(client):
         "date_posted": "2022-03-20",
     }
     client.post("/jobs/create-job/", json=data)
+    client.delete("/jobs/delete/1")
     response = client.get("/jobs/get/1/")
     assert response.status_code == status.HTTP_404_NOT_FOUND

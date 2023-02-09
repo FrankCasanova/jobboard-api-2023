@@ -1,3 +1,6 @@
+#to run this file type: pre-commit install
+#after that type: pre-commit run --all-files
+
 repos:
 -   repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v2.3.0
