@@ -17,6 +17,7 @@ pytest = "*"
 requests = "*"
 httpx = "*"
 pre-commit = "*"
+python-jose = "*"
 
 [dev-packages]
 
