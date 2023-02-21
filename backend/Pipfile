@@ -18,6 +18,7 @@ requests = "*"
 httpx = "*"
 pre-commit = "*"
 python-jose = "*"
+python-multipart = "*"
 
 [dev-packages]
 
