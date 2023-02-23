@@ -1,16 +1,11 @@
-# route_homepage.py
+# Removed general_pages_router part from this file (apis > base.py)
+from apis.version1 import route_jobs
+from apis.version1 import route_login
+from apis.version1 import route_users
 from fastapi import APIRouter
-from fastapi import Request
-from fastapi.templating import Jinja2Templates
 
 
-templates = Jinja2Templates(directory="templates")
-general_pages_router = APIRouter()
-
-
-@general_pages_router.get("/")
-async def home(request: Request):
-    return templates.TemplateResponse(
-        "general_pages/homepage.html",
-        {"request": request},
-    )
+api_router = APIRouter()
+api_router.include_router(route_users.router, prefix="/users", tags=["users"])
+api_router.include_router(route_jobs.router, prefix="/jobs", tags=["jobs"])
+api_router.include_router(route_login.router, prefix="/login", tags=["login"])

@@ -5,10 +5,12 @@ from db.base_class import Base
 from db.session import engine
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
+from webapps.base import api_router as web_app_router
 
 
 def include_router(app) -> None:
     app.include_router(api_router)
+    app.include_router(web_app_router)
 
 
 def configure_static(app) -> None:
@@ -16,7 +18,6 @@ def configure_static(app) -> None:
 
 
 def create_tables() -> None:
-    print("Creating tables.")
     Base.metadata.create_all(bind=engine)
 
 
