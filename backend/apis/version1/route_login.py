@@ -1,5 +1,6 @@
 from datetime import timedelta
 
+from apis.utils import OAuth2PasswordBearerWithCookie
 from core.config import settings
 from core.hashing import Hasher
 from core.security import create_access_token
@@ -8,8 +9,8 @@ from db.session import get_db
 from fastapi import APIRouter
 from fastapi import Depends
 from fastapi import HTTPException
+from fastapi import Response
 from fastapi import status
-from fastapi.security import OAuth2PasswordBearer
 from fastapi.security import OAuth2PasswordRequestForm
 from jose import jwt
 from jose import JWTError
@@ -32,9 +33,10 @@ def authenticate_user(username: str, password: str, db: Session):
 
 @router.post("/token", response_model=Token)
 def login_for_access_token(
+    response: Response,
     form_data: OAuth2PasswordRequestForm = Depends(),
     db: Session = Depends(get_db),
-):
+):  # added response as a function parameter
     user = authenticate_user(form_data.username, form_data.password, db)
     if not user:
         raise HTTPException(
@@ -46,10 +48,17 @@ def login_for_access_token(
         data={"sub": user.email},
         expires_delta=access_token_expires,
     )
+    response.set_cookie(
+        key="access_token",
+        value=f"Bearer {access_token}",
+        httponly=True,
+    )  # set HttpOnly cookie in response
     return {"access_token": access_token, "token_type": "bearer"}
 
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/login/token")  # new
+oauth2_scheme = OAuth2PasswordBearerWithCookie(
+    tokenUrl="/login/token",
+)  # changed to use our implementation  # new
 
 # new function, It works as a dependency
 
