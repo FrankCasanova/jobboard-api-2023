@@ -5,7 +5,11 @@
   <title>Job Board</title>
 {% endblock %}
 
+
 {% block content %}
+  {% with msg=msg %}
+    {% include "components/alerts.html" %}
+  {% endwith %}
   <div class="container">
   <div class="row">
     <div class="col">
