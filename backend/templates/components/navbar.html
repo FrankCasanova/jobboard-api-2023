@@ -17,9 +17,6 @@
         <li class="nav-item">
           <a class="nav-link" href="/redoc/">Redoc</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">{{user}}</a>
-        </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Account
@@ -49,3 +46,16 @@
     </div>
   </div>
 </nav>
+<script>
+  // Make a request to the backend to get the current user's information
+  fetch('/users/me')
+    .then(response => response.json())
+    .then(data => {
+      // Update the navbar with the user's name
+      const userName = data.username;
+      const userNavItem = document.createElement('li');
+      userNavItem.classList.add('nav-item');
+      userNavItem.innerHTML = `<a class="nav-link" href="#">${userName}</a>`;
+      document.querySelector('.navbar-nav.ml-auto.mb-2.mb-lg-0').appendChild(userNavItem);
+    });
+</script>
