@@ -3,6 +3,7 @@ from apis.base import api_router
 from core.config import settings
 from db.base_class import Base
 from db.session import engine
+from db.utils import check_db_connected
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from webapps.base import api_router as web_app_router
@@ -30,6 +31,12 @@ def start_application() -> FastAPI():
 
 
 app = start_application()
+
+
+@app.on_event("startup")
+async def app_startup():
+    await check_db_connected()
+
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)

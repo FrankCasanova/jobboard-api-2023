@@ -19,6 +19,8 @@ httpx = "*"
 pre-commit = "*"
 python-jose = "*"
 python-multipart = "*"
+databases = "*"
+asyncpg = "*"
 
 [dev-packages]
 
