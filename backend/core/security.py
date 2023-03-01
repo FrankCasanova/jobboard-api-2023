@@ -1,13 +1,16 @@
-# core > security.py
 from datetime import datetime
 from datetime import timedelta
+from typing import Dict
 from typing import Optional
 
 from core.config import settings
 from jose import jwt
 
 
-def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
+def create_access_token(
+    data: Dict[str, str],
+    expires_delta: Optional[timedelta] = None,
+) -> str:
     to_encode = data.copy()
     if expires_delta:
         expire = datetime.utcnow() + expires_delta
