@@ -11,6 +11,8 @@ repos:
     -   id: mixed-line-ending
     -   id: check-added-large-files
     -   id: detect-private-key
+    exclude: README.md
+
 
 -   repo: https://github.com/psf/black
     rev: 23.1.0
