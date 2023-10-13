@@ -1,7 +1,7 @@
 # Removed general_pages_router part from this file (apis > base.py)
-from apis.version1 import route_jobs
-from apis.version1 import route_login
-from apis.version1 import route_users
+from .apis.version1 import route_jobs
+from .apis.version1 import route_login
+from .apis.version1 import route_users
 from fastapi import APIRouter
 
 
