@@ -1,12 +1,12 @@
-from db.models.users import User
-from db.repository.users import create_new_user
-from db.session import get_db
+from .db.models.users import User
+from .db.repository.users import create_new_user
+from .db.session import get_db
 from fastapi import APIRouter
 from fastapi import Depends
 from fastapi import Request
 from fastapi.security.utils import get_authorization_scheme_param
-from schemas.users import ShowUser
-from schemas.users import UserCreate
+from .schemas.users import ShowUser
+from .schemas.users import UserCreate
 from sqlalchemy.orm import Session
 
 from .route_login import get_current_user_from_token
