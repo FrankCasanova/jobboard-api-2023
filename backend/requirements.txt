@@ -11,6 +11,7 @@ aiofiles
 sqlalchemy
 psycopg2
 psycopg2-binary
+pypostgresql
 
 #for loading environment variables
 python-dotenv
