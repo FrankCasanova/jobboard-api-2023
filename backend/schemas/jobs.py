@@ -25,4 +25,4 @@ class ShowJob(JobBase):
     company_url: Optional[str]
 
     class Config:
-        orm_mode = True
+        from_atributes = True
