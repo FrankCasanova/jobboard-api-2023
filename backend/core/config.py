@@ -18,7 +18,7 @@ class Settings:
     # default postgres port is 5432
     # PGHOST: str = os.getenv("PGHOST", 5432)
     # PGDATABASE: str = os.getenv("PGDATABASE", "tdd")
-    DATABASE_URL: str = os.getenv("PGDATABASE")
+    DATABASE_URL: str = os.getenv("postgres://vnabcbor:RXEERgmnCGB4su67SJCU5_z9DdNAueOC@flora.db.elephantsql.com/vnabcbor")
     SECRET_KEY: str = os.getenv("SECRET_KEY")
     ALGORITHM = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES = 30

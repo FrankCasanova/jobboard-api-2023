@@ -1,11 +1,11 @@
 from datetime import timedelta
 
-from .apis.utils import OAuth2PasswordBearerWithCookie
-from .core.config import settings
-from .core.hashing import Hasher
-from .core.security import create_access_token
-from .db.repository.login import get_user
-from .db.session import get_db
+from apis.utils import OAuth2PasswordBearerWithCookie
+from core.config import settings
+from core.hashing import Hasher
+from core.security import create_access_token
+from db.repository.login import get_user
+from db.session import get_db
 from fastapi import APIRouter
 from fastapi import Depends
 from fastapi import HTTPException
@@ -14,7 +14,7 @@ from fastapi import status
 from fastapi.security import OAuth2PasswordRequestForm
 from jose import jwt
 from jose import JWTError
-from .schemas.tokens import Token
+from schemas.tokens import Token
 from sqlalchemy.orm import Session
 
 
