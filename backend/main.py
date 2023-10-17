@@ -6,7 +6,7 @@ from db.session import engine
 from db.utils import check_db_connected
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
-from .webapps.base import api_router as web_app_router
+from webapps.base import api_router as web_app_router
 
 
 # origins = [
