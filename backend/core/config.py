@@ -18,7 +18,7 @@ class Settings:
     # default postgres port is 5432
     PGHOST: str = os.getenv("PGHOST", 5432)
     PGDATABASE: str = os.getenv("PGDATABASE", "tdd")
-    DATABASE_URL: str = "postgres://jo_hywb_user:LV5C4um0j8NOhvANSslJ4URL2WYcRHNs@dpg-ckndtpf83ejs73fp8q40-a/jo_hywb"
+    DATABASE_URL: str = os.getenv("DATABASE_URL")
     SECRET_KEY: str = os.getenv("SECRET_KEY")
     ALGORITHM = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES = 30
