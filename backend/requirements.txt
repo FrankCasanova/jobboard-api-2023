@@ -10,6 +10,7 @@ aiofiles
 #for database
 sqlalchemy
 psycopg2
+psycopg2-binary
 
 #for loading environment variables
 python-dotenv
