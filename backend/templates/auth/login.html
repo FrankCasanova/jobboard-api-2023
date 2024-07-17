@@ -1,41 +1,71 @@
 {% extends "shared/base.html" %}
 
 {% block title %}
-  <title>Login</title>
+  <title>Login - JobBoard</title>
 {% endblock %}
 
 {% block content %}
-  <div class="container">
-    <div class="row">
-      <h5 class="display-5">Login to JobBoard</h5>
-      <div class="text-danger font-weight-bold">
-          {% for error in errors %}
-            <li>{{error}}</li>
-          {% endfor %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card bg-dark text-light border-secondary slide-in">
+        <div class="card-body">
+          <h2 class="card-title text-center mb-4">Login to JobBoard</h2>
+          
+          {% if errors %}
+          <div class="alert alert-danger fade-in" role="alert">
+            <ul class="mb-0">
+              {% for error in errors %}
+                <li>{{ error }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+          {% endif %}
+
+          {% if msg %}
+          <div class="alert alert-success fade-in" role="alert">
+            {{ msg }}
+          </div>
+          {% endif %}
+
+          <form method="POST" class="needs-validation" novalidate>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control bg-dark text-light" id="email" name="email" value="{{ email }}" required placeholder="Your email">
+              <div class="invalid-feedback">Please enter a valid email address.</div>
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" class="form-control bg-dark text-light" id="password" name="password" value="{{ password }}" required placeholder="Enter your password">
+              <div class="invalid-feedback">Please enter your password.</div>
+            </div>
+            <div class="d-grid">
+              <button type="submit" class="btn btn-primary btn-lg">Login</button>
+            </div>
+          </form>
+        </div>
       </div>
-
-      <div class="text-success font-weight-bold">
-        {% if msg %}
-        <div class="badge bg-success text-wrap font-weight-bold" style="font-size: large;">
-          {{msg}}
-        </div>
-        {% endif %}
-      </div>
-    </div>
-
-
-    <div class="row my-5">
-      <form method="POST">
-        <div class="mb-3">
-          <label>Email</label>
-          <input type="text" required placeholder="Your email" name="email" value="{{email}}" class="form-control">
-        </div>
-        <div class="mb-3">
-          <label>Password</label>
-          <input type="password" required placeholder="Choose a secure password" value="{{password}}" name="password" class="form-control">
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
     </div>
   </div>
-  {% endblock %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  // Form validation
+  (function () {
+    'use strict'
+    var forms = document.querySelectorAll('.needs-validation')
+    Array.prototype.slice.call(forms)
+      .forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+          if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+          }
+          form.classList.add('was-validated')
+        }, false)
+      })
+  })()
+</script>
+{% endblock %}

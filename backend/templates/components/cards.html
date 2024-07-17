@@ -1,9 +1,19 @@
-<div class="card shadow p-3 mb-2 bg-body rounded" style="width: 18rem;">
+<div class="card shadow p-3 mb-3 bg-dark text-light border-secondary rounded-3 hover-effect" style="width: 100%; max-width: 20rem;">
   <div class="card-body">
-    <h5 class="card-title">{{obj.title}}</h5>
-    <p class="card-text">Company : {{obj.company}}</p>
-    <p class="card-text">Company URL : <a href="{{obj.company_url}}">{{obj.company_url}}</a></p>
-    <p class="card-text">Description : {{obj.description[:60]}}</p>
-    <a href="/details/{{obj.id}}" class="btn btn-primary">Read more</a>
+    <h5 class="card-title text-primary mb-3">{{obj.title}}</h5>
+    <p class="card-text"><strong>Company:</strong> {{obj.company}}</p>
+    <p class="card-text"><strong>Company URL:</strong> <a href="{{obj.company_url}}" class="text-info" target="_blank" rel="noopener noreferrer">{{obj.company_url}}</a></p>
+    <p class="card-text"><strong>Description:</strong> {{obj.description[:60]}}{% if obj.description|length > 60 %}...{% endif %}</p>
+    <a href="/details/{{obj.id}}" class="btn btn-outline-primary mt-2 w-100">Read more</a>
   </div>
 </div>
+
+<style>
+  .hover-effect {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .hover-effect:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2) !important;
+  }
+</style>

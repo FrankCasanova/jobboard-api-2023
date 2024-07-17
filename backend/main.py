@@ -27,7 +27,7 @@ def create_tables() -> None:
     Base.metadata.create_all(bind=engine)
 
 
-def start_application() -> FastAPI():
+def start_application() -> FastAPI:
     app = FastAPI(title=settings.PROJECT_NAME, version=settings.PROJECT_VERSION)
     include_router(app)
     configure_static(app)
