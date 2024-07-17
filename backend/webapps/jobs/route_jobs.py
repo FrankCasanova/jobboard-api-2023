@@ -19,7 +19,7 @@ from sqlalchemy.orm import Session
 from webapps.jobs.forms import JobCreateForm
 
 
-templates = Jinja2Templates(directory="templates")
+templates = Jinja2Templates(directory="backend/templates")
 router = APIRouter(include_in_schema=False)
 
 

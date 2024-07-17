@@ -9,7 +9,7 @@ from sqlalchemy.orm import Session
 from webapps.auth.forms import LoginForm
 
 
-templates = Jinja2Templates(directory="templates")
+templates = Jinja2Templates(directory="backend/templates")
 router = APIRouter(include_in_schema=False)
 
 

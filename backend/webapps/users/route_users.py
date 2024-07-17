@@ -3,7 +3,8 @@ from db.session import get_db
 from fastapi import APIRouter
 from fastapi import Depends
 from fastapi import Request
-from fastapi import responses
+from fastapi import responses, Response
+from fastapi.responses import RedirectResponse
 from fastapi import status
 from fastapi.templating import Jinja2Templates
 from schemas.users import UserCreate
@@ -12,7 +13,7 @@ from sqlalchemy.orm import Session
 from webapps.users.forms import UserCreateForm
 
 
-templates = Jinja2Templates(directory="templates")
+templates = Jinja2Templates(directory="backend/templates")
 router = APIRouter(include_in_schema=False)
 
 
@@ -41,3 +42,9 @@ async def register(request: Request, db: Session = Depends(get_db)):
             form.__dict__.get("errors").append("Duplicate username or email")
             return templates.TemplateResponse("users/register.html", form.__dict__)
     return templates.TemplateResponse("users/register.html", form.__dict__)
+
+
+@router.post("/logout")
+def logout( response : Response):
+    response.delete_cookie(key="access_token")
+    return RedirectResponse(url="/", status_code=status.HTTP_302_FOUND)

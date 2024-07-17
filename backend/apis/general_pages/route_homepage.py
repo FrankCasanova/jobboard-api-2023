@@ -14,3 +14,4 @@ async def home(request: Request):
         "general_pages/homepage.html",
         {"request": request},
     )
+

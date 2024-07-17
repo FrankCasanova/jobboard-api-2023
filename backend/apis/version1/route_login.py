@@ -87,3 +87,4 @@ def get_current_user_from_token(
     if user is None:
         raise credentials_exception
     return user
+
