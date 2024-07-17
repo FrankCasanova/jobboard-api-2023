@@ -20,7 +20,7 @@ def include_router(app) -> None:
 
 
 def configure_static(app) -> None:
-    app.mount("/static", StaticFiles(directory="backend/static"), name="static")
+    app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
 def create_tables() -> None:
