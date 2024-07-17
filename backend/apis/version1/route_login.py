@@ -16,6 +16,7 @@ from jose import jwt
 from jose import JWTError
 from schemas.tokens import Token
 from sqlalchemy.orm import Session
+from fastapi.responses import JSONResponse
 
 
 router = APIRouter()
@@ -87,4 +88,21 @@ def get_current_user_from_token(
     if user is None:
         raise credentials_exception
     return user
+
+from datetime import datetime, timedelta
+
+
+@router.post("/logout")
+def logout(response: Response):
+    expires = datetime.now() - timedelta(days=1)  # Set to a past date for immediate deletion
+    response.delete_cookie(
+        key="access_token",
+        path="/",
+        domain=None,
+        secure=False,  # Adjust based on HTTPS usage
+        httponly=True,
+    )
+    response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+    return JSONResponse(content={"message": "Logged out successfully"}, status_code=status.HTTP_200_OK)
+
 

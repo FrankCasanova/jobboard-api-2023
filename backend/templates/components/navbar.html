@@ -1,7 +1,8 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light px-5">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3 py-2">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">
-      <img src="{{ url_for('static', path='images/logo.png') }}" alt="" width="30" height="24">
+    <a class="navbar-brand" href="/">
+      <img src="{{ url_for('static', path='images/logo.png') }}" alt="Logo" width="30" height="30" class="d-inline-block align-text-top me-2">
+      JobBoard
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -9,7 +10,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/">Home</a>
+          <a class="nav-link" href="/" id="homeLink">Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/docs/">Docs</a>
@@ -18,44 +19,106 @@
           <a class="nav-link" href="/redoc/">Redoc</a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Account
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="/register/">Signup</a></li>
-            <li><a class="dropdown-item" href="/login/">Login</a></li>
-            <li><hr class="dropdown-divider"></li>
-          </ul>
-        </li>
-      </ul>
-      <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="#" id="jobsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Jobs
           </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="/post-a-job/">Create Job post</a></li>
-            <li><a class="dropdown-item" href="/delete-job/">Delete a post</a></li>
+          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="jobsDropdown">
+            <li><a class="dropdown-item" href="/post-a-job/">Create Job Post</a></li>
+            <li><a class="dropdown-item" href="/delete-job/">Delete a Post</a></li>
           </ul>
         </li>
       </ul>
-      <form class="d-flex" action="/search/">
-        <input class="form-control me-2" name="query" id="autocomplete" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
+      <form class="d-flex me-3" action="/search/">
+        <input class="form-control me-2 bg-dark text-light border-secondary" name="query" id="autocomplete" type="search" placeholder="Search jobs..." aria-label="Search">
+        <button class="btn btn-outline-light" type="submit">Search</button>
       </form>
+      <ul class="navbar-nav mb-2 mb-lg-0">
+        <li class="nav-item dropdown" id="userDropdown" style="display: none;">
+          <a class="nav-link dropdown-toggle" href="#" id="userDropdownToggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <span id="userName"></span>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="userDropdownToggle">
+            <li><a class="dropdown-item" href="/profile/">Profile</a></li>
+            <li><a class="dropdown-item" href="/settings/">Settings</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#" id="logout-link">Logout</a></li>
+          </ul>
+        </li>
+        <li class="nav-item" id="loginSignup">
+          <a id="logout-link" class="nav-link" href="/login/">Login</a>
+        </li>
+        <li class="nav-item" id="loginSignup">
+          <a class="nav-link" href="/register/">Signup</a>
+        </li>
+      </ul>
     </div>
   </div>
 </nav>
+
 <script>
-  // Make a request to the backend to get the current user's information
-  fetch('/users/me')
-    .then(response => response.json())
-    .then(data => {
-      // Update the navbar with the user's name
-      const userName = data.username;
-      const userNavItem = document.createElement('li');
-      userNavItem.classList.add('nav-item');
-      userNavItem.innerHTML = `<a class="nav-link text-white bg-dark" href="#">${userName}</a>`;
-      document.querySelector('.navbar-nav.ml-auto.mb-2.mb-lg-0').appendChild(userNavItem);
+  document.addEventListener('DOMContentLoaded', function() {
+    // Set active nav item
+    const currentPath = window.location.pathname;
+    document.querySelectorAll('.nav-link').forEach(link => {
+      if (link.getAttribute('href') === currentPath) {
+        link.classList.add('active');
+        link.setAttribute('aria-current', 'page');
+      }
     });
+  
+    // Fetch user info
+    fetch('/users/me')
+      .then(response => response.json())
+      .then(data => {
+        if (data.username) {
+          document.getElementById('userName').textContent = data.username;
+          document.getElementById('userDropdown').style.display = 'block';
+          document.querySelectorAll('#loginSignup').forEach(el => el.style.display = 'none');
+          
+          // Add event listener to logout link
+          const logoutLink = document.getElementById('logout-link');
+          if (logoutLink) {
+            logoutLink.addEventListener('click', function(event) {
+              event.preventDefault();
+              fetch('/login/logout', { method: 'POST' })
+                .then(() => {
+                  window.location.href = "/";  // Redirect to home page after logout
+                })
+                .catch(error => {
+                  console.error('Error during logout:', error);
+                });
+            });
+          }
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching user data:', error);
+      });
+  });
 </script>
+
+<style>
+.navbar {
+  box-shadow: 0 2px 4px rgba(0,0,0,.1);
+}
+.nav-link {
+  position: relative;
+  transition: color 0.3s ease;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #fff;
+  transition: width 0.3s ease;
+}
+.nav-link:hover::after, .nav-link.active::after {
+  width: 100%;
+}
+.dropdown-item {
+  transition: background-color 0.3s ease;
+}
+</style>

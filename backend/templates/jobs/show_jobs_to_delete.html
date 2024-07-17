@@ -51,7 +51,12 @@
             method:'DELETE',})
         .then(response => response.json())
         .then(document.getElementById('result').innerHTML = "Refreshing...")
-        .then(data => document.getElementById('result').innerHTML = data.detail);
+        .then(data => document.getElementById('result').innerHTML = data.detail)
+        .then(() => {
+            setTimeout(function(){
+                location.reload(); 
+            });
+        });
     }
 </script>
 {% endblock %}
