@@ -1,6 +1,6 @@
 import uvicorn
 from contextlib import asynccontextmanager
-from apis.base import api_router
+from backend.apis.base import api_router
 from core.config import settings
 from db.base_class import Base
 from db.session import engine
