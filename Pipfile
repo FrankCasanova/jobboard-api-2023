@@ -21,7 +21,6 @@ python-jose = "*"
 python-multipart = "*"
 databases = "*"
 asyncpg = "*"
-psycopg2 = "*"
 
 [dev-packages]
 
