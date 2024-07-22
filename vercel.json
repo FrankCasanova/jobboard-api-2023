@@ -12,9 +12,8 @@
       "dest": "backend/main.py"
     }
   ],
-  "functions": {
-    "backend/main.py": {
-      "includeFiles": "backend/main.py"
-    }
-}
+  "env": {
+    "PYTHONPATH": "backend/"
+  
+  }
 }
