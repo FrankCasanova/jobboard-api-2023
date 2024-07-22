@@ -9,7 +9,6 @@ aiofiles
 
 #for database
 sqlalchemy==1.4.46
-psycopg2
 psycopg2-binary
 
 #for loading environment variables
