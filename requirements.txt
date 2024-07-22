@@ -9,7 +9,7 @@ aiofiles
 
 #for database
 sqlalchemy==1.4.46
-psycopg2-binary==2.9.9
+psycopg2-binary==2.9.6
 
 #for loading environment variables
 python-dotenv
